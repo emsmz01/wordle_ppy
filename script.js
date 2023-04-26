@@ -1,8 +1,8 @@
 let intentos = 6;
 let palabra = "APPLE";
-const button = document.getElementById("guess-button");
+const BOTON = document.getElementById("guess-button");
 
-button.addEventListener("click", intentar);
+BOTON.addEventListener("click", intentar);
 window.addEventListener('load', init)
 function leerIntento(){
     let intento = document.getElementById("guess-input");
@@ -12,18 +12,27 @@ function leerIntento(){
 function intentar(){
     const INTENTO = leerIntento();
     if (INTENTO === palabra ) {
-            terminar("<h1>GANASTE!😀</h1>")
-            return
+          terminar("<h1>GANASTE!😀</h1>")
+          return
         }
-    for (let i in palabra){
-        if (INTENTO[i]===palabra[i]){
-            console.log(INTENTO[i], "VERDE")
-        } else if( palabra.includes(INTENTO[i]) ) {
-            console.log(INTENTO[i], "AMARILLO")
-        } else {
-            console.log(INTENTO[i], "GRIS")
-        }
+    const GRID = document.getElementById("grid");
+const ROW = document.createElement('div');
+ROW.className = 'row';
+for(let i in palabra){
+    const SPAN = document.createElement('span');
+    SPAN.className='letter';
+    SPAN.innerHTML= INTENTO[i];
+    if(INTENTO[i]===palabra[i]){
+        SPAN.style.backgroundColor= '#79b851';
+    }else if(palabra.includes(INTENTO[i])){
+        SPAN.style.backgroundColor= 'yellow';
+    }else{
+        SPAN.style.backgroundColor= 'gray';
     }
+    ROW.appendChild(SPAN);
+}
+GRID.appendChild(ROW);
+
 	intentos--
     if (intentos==0){
             terminar("<h1>PERDISTE!😖</h1>")
